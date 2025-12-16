@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sulabh-aap-external-lb
+  namespace: sulabh
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: postgresql
+      protocol: TCP
+  selector:
+    postgresql: sulabh-aap  

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: external-postgres-configuration-hub
+  namespace: sulabh-postgres
+type: Opaque
+stringData:
+  type: unmanaged
+  host: postgres-test-rw
+  port: "5432"
+  database: aap_hub
+  username: aap
+  password: aap12345
+

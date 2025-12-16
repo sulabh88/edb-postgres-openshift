@@ -1,0 +1,8 @@
+apiVersion: automationcontroller.ansible.com/v1beta1
+kind: AutomationControllerBackup
+metadata:
+  name: controller-backup
+  namespace: sulabh-postgres
+spec:
+  deployment_name: aap  # or your controller sub-deployment name
+  postgres_configuration_secret: external-postgres-configuration-controller

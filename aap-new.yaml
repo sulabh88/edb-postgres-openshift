@@ -1,0 +1,8 @@
+apiVersion: automationcontroller.ansible.com/v1beta1
+kind: AutomationControllerRestore
+metadata:
+  name: aap-controller-restore-test
+  namespace: sulabh-postgres
+spec:
+  deployment_name: aap-controller-new  # New name to avoid conflict
+  backup_name: sulabh-backup  # Your backup CR name

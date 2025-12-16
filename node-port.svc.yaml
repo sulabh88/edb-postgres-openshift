@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sulabh-aap-rw-nodeport
+  namespace: sulabh
+spec:
+  type: NodePort
+  selector:
+    cnpg.io/cluster: sulabh-aap  # Adjust to match your cluster's pod labels (check with oc get pods -l cnpg.io/cluster -n sulabh)
+    role: primary               # Targets only the primary pod (optional but recommended)
+  ports:
+    - port: 5432
+      targetPort: postgresql
+      nodePort: 30432             # Optional: fix a port (30000-32767); omit for auto-assign
