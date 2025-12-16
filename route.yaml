@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: sulabh-external
+  namespace: sulabh
+spec:
+  host: sulabh-aap-rw-sulabh.apps.mgm01.dev-mia.dc.li9.com
+  to:
+    kind: Service
+    name: sulabh-aap-rw
+  port:
+    targetPort: postgresql  
+  tls:
+    termination: reencrypt
+    insecureEdgeTerminationPolicy: Redirect

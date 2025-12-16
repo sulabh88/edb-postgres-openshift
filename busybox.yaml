@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backup-viewer
+  namespace: sulabh-postgres
+spec:
+  containers:
+  - name: viewer
+    image: busybox
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - mountPath: /backups
+      name: backup-vol
+  volumes:
+  - name: backup-vol
+    persistentVolumeClaim:
+      claimName: aap-backup-claim

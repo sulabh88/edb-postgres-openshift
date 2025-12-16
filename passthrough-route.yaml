@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: sulabh-external-passthrough
+  namespace: sulabh
+spec:
+  host: sulabh-aap-rw-passthrough.apps.mgm01.dev-mia.dc.li9.com
+  to:
+    kind: Service
+    name: sulabh-aap-rw
+    weight: 100
+  port:
+    targetPort: postgresql  # 5432
+  tls:
+    termination: passthrough   # <--- Key change
+    insecureEdgeTerminationPolicy: Redirect

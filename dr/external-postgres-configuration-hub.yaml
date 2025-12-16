@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: external-postgres-configuration-hub
+  namespace: postgres-dr
+type: Opaque
+stringData:
+  type: unmanaged
+  host: postgres-dr-rw
+  port: "5432"
+  database: aap_hub
+  username: aap
+  password: aap12345
+

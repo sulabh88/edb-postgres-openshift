@@ -1,0 +1,26 @@
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+  namespace: postgres-dr
+spec:
+  api:
+    replicas: 1
+  database:
+    database_secret: external-postgres-configuration-gateway
+    idle_disabled: false
+    postgres_data_volume_init: false
+  controller:
+    postgres_configuration_secret: external-postgres-configuration-controller
+  hub:
+    postgres_configuration_secret: external-postgres-configuration-hub
+    storage_type: file
+    file_storage_storage_class: ocs-storagecluster-cephfs
+    file_storage_size: 10Gi
+  eda:
+    database:
+      database_secret: external-postgres-configuration-eda
+  ingress_type: Route
+  no_log: false
+  redis_mode: standalone
+  route_tls_termination_mechanism: Edge

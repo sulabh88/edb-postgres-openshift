@@ -1,0 +1,15 @@
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatformBackup
+metadata:
+  name: aap-backup-retry-20251218
+  namespace: sulabh-postgres
+spec:
+  deployment_name: aap
+  backup_pvc_storage_requirements: 200Gi  # Increase if needed
+  backup_management_pod_resources:
+    requests:
+      cpu: 1
+      memory: 4Gi
+    limits:
+      cpu: 2
+      memory: 8Gi

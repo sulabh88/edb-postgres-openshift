@@ -1,0 +1,251 @@
+apiVersion: v1
+items:
+- apiVersion: postgresql.k8s.enterprisedb.io/v1
+  kind: Cluster
+  metadata:
+    creationTimestamp: "2025-12-19T16:19:41Z"
+    generation: 4
+    name: postgres-15
+    namespace: sulabh-postgres
+    resourceVersion: "249598281"
+    uid: 9c7db493-10ce-4e4d-abaa-cc7a3fd9b502
+  spec:
+    affinity:
+      podAntiAffinityType: preferred
+    backup:
+      target: prefer-standby
+      volumeSnapshot:
+        online: true
+        onlineConfiguration:
+          immediateCheckpoint: false
+          waitForArchive: true
+        snapshotOwnerReference: none
+    bootstrap:
+      initdb:
+        database: app
+        encoding: UTF8
+        localeCType: C
+        localeCollate: C
+        owner: app
+    enablePDB: true
+    enableSuperuserAccess: true
+    failoverDelay: 0
+    imageName: quay.io/enterprisedb/postgresql:15
+    instances: 3
+    logLevel: info
+    maxSyncReplicas: 0
+    minSyncReplicas: 0
+    monitoring:
+      customQueriesConfigMap:
+      - key: queries
+        name: postgresql-operator-default-monitoring
+      disableDefaultQueries: false
+      enablePodMonitor: false
+      tls:
+        enabled: false
+    nodeMaintenanceWindow:
+      inProgress: false
+      reusePVC: true
+    postgresGID: 26
+    postgresUID: 26
+    postgresql:
+      parameters:
+        archive_mode: "on"
+        archive_timeout: 5min
+        dynamic_shared_memory_type: posix
+        full_page_writes: "on"
+        log_destination: csvlog
+        log_directory: /controller/log
+        log_filename: postgres
+        log_rotation_age: "0"
+        log_rotation_size: "0"
+        log_truncate_on_rotation: "false"
+        logging_collector: "on"
+        max_parallel_workers: "32"
+        max_replication_slots: "32"
+        max_worker_processes: "32"
+        shared_memory_type: mmap
+        shared_preload_libraries: ""
+        ssl_max_protocol_version: TLSv1.3
+        ssl_min_protocol_version: TLSv1.3
+        wal_keep_size: 512MB
+        wal_level: logical
+        wal_log_hints: "on"
+        wal_receiver_timeout: 5s
+        wal_sender_timeout: 5s
+      pg_hba:
+      - hostssl replication dr_user 10.244.0.0/16 scram-sha-256
+      - hostssl replication dr_user 100.64.0.0/10 scram-sha-256
+      - hostssl replication dr_user 172.25.0.0/16 scram-sha-256
+      syncReplicaElectionConstraint:
+        enabled: false
+    primaryUpdateMethod: restart
+    primaryUpdateStrategy: unsupervised
+    probes:
+      liveness:
+        isolationCheck:
+          connectionTimeout: 1000
+          enabled: true
+          requestTimeout: 1000
+    replicationSlots:
+      highAvailability:
+        enabled: true
+        slotPrefix: _cnp_
+      synchronizeReplicas:
+        enabled: true
+      updateInterval: 30
+    resources: {}
+    smartShutdownTimeout: 180
+    startDelay: 3600
+    stopDelay: 1800
+    storage:
+      resizeInUseVolumes: true
+      size: 1Gi
+    switchoverDelay: 3600
+    walStorage:
+      resizeInUseVolumes: true
+      size: 1Gi
+  status:
+    availableArchitectures:
+    - goArch: amd64
+      hash: f1c41f4321e56cdfb0c4a3f812307c16d163204773d5232a95d58f6b9c170dca
+    - goArch: arm64
+      hash: 85206caec5f5ce2e9ad6285ea10570ab103db1230c9cbffb9157cf5085dbf71c
+    - goArch: ppc64le
+      hash: 139fdf26f2834af959889cad805bad7044e886a607f4068b98f0d4315d2204f2
+    - goArch: s390x
+      hash: fe1e9dd2caee6690c3d3676f5e9a608a30a5a6e16b7685793bd68addd62b3c8d
+    certificates:
+      clientCASecret: postgres-15-ca
+      expirations:
+        postgres-15-ca: 2026-03-19 16:14:42 +0000 UTC
+        postgres-15-replication: 2026-03-19 16:14:42 +0000 UTC
+        postgres-15-server: 2026-03-19 16:14:42 +0000 UTC
+      replicationTLSSecret: postgres-15-replication
+      serverAltDNSNames:
+      - postgres-15-rw
+      - postgres-15-rw.sulabh-postgres
+      - postgres-15-rw.sulabh-postgres.svc
+      - postgres-15-rw.sulabh-postgres.svc.cluster.local
+      - postgres-15-r
+      - postgres-15-r.sulabh-postgres
+      - postgres-15-r.sulabh-postgres.svc
+      - postgres-15-r.sulabh-postgres.svc.cluster.local
+      - postgres-15-ro
+      - postgres-15-ro.sulabh-postgres
+      - postgres-15-ro.sulabh-postgres.svc
+      - postgres-15-ro.sulabh-postgres.svc.cluster.local
+      serverCASecret: postgres-15-ca
+      serverTLSSecret: postgres-15-server
+    cloudNativePostgresqlCommitHash: d2b15b5dd
+    cloudNativePostgresqlOperatorHash: f1c41f4321e56cdfb0c4a3f812307c16d163204773d5232a95d58f6b9c170dca
+    conditions:
+    - lastTransitionTime: "2025-12-19T16:20:10Z"
+      message: A single, unique system ID was found across reporting instances.
+      reason: Unique
+      status: "True"
+      type: ConsistentSystemID
+    - lastTransitionTime: "2025-12-20T04:44:41Z"
+      message: Cluster is Ready
+      reason: ClusterIsReady
+      status: "True"
+      type: Ready
+    - lastTransitionTime: "2025-12-20T04:47:49Z"
+      message: Continuous archiving is working
+      reason: ContinuousArchivingSuccess
+      status: "True"
+      type: ContinuousArchiving
+    - lastTransitionTime: "2025-12-19T16:21:18Z"
+      message: velero addon is disabled
+      reason: Disabled
+      status: "False"
+      type: k8s.enterprisedb.io/velero
+    - lastTransitionTime: "2025-12-19T16:21:18Z"
+      message: external-backup-adapter addon is disabled
+      reason: Disabled
+      status: "False"
+      type: k8s.enterprisedb.io/externalBackupAdapter
+    - lastTransitionTime: "2025-12-19T16:21:18Z"
+      message: external-backup-adapter-cluster addon is disabled
+      reason: Disabled
+      status: "False"
+      type: k8s.enterprisedb.io/externalBackupAdapterCluster
+    - lastTransitionTime: "2025-12-19T16:21:19Z"
+      message: kasten addon is disabled
+      reason: Disabled
+      status: "False"
+      type: k8s.enterprisedb.io/kasten
+    configMapResourceVersion:
+      metrics:
+        postgresql-operator-default-monitoring: "238511682"
+    currentPrimary: postgres-15-1
+    currentPrimaryTimestamp: "2025-12-20T04:42:51.973107Z"
+    healthyPVC:
+    - postgres-15-1
+    - postgres-15-1-wal
+    - postgres-15-2
+    - postgres-15-2-wal
+    - postgres-15-3
+    - postgres-15-3-wal
+    image: quay.io/enterprisedb/postgresql:15
+    instanceNames:
+    - postgres-15-1
+    - postgres-15-2
+    - postgres-15-3
+    instances: 3
+    instancesReportedState:
+      postgres-15-1:
+        ip: 10.244.6.141
+        isPrimary: true
+        timeLineID: 3
+      postgres-15-2:
+        ip: 10.244.9.123
+        isPrimary: false
+        timeLineID: 3
+      postgres-15-3:
+        ip: 10.244.6.159
+        isPrimary: false
+        timeLineID: 3
+    instancesStatus:
+      healthy:
+      - postgres-15-1
+      - postgres-15-2
+      - postgres-15-3
+    latestGeneratedNode: 3
+    licenseStatus:
+      licenseStatus: Not enforced
+      repositoryAccess: false
+      valid: false
+    managedRolesStatus: {}
+    pgDataImageInfo:
+      image: quay.io/enterprisedb/postgresql:15
+      majorVersion: 15
+    phase: Cluster in healthy state
+    poolerIntegrations:
+      pgBouncerIntegration: {}
+    pvcCount: 6
+    readService: postgres-15-r
+    readyInstances: 3
+    secretsResourceVersion:
+      applicationSecretVersion: "238526266"
+      clientCaSecretVersion: "238526260"
+      replicationSecretVersion: "238526264"
+      serverCaSecretVersion: "238526260"
+      serverSecretVersion: "238526262"
+      superuserSecretVersion: "248600760"
+    switchReplicaClusterStatus: {}
+    systemID: "7585604544324861977"
+    targetPrimary: postgres-15-1
+    targetPrimaryTimestamp: "2025-12-20T04:42:17.116515Z"
+    timelineID: 3
+    topology:
+      instances:
+        postgres-15-1: {}
+        postgres-15-2: {}
+        postgres-15-3: {}
+      nodesUsed: 2
+      successfullyExtracted: true
+    writeService: postgres-15-rw
+kind: List
+metadata:
+  resourceVersion: ""

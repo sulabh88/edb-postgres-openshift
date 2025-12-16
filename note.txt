@@ -1,0 +1,62 @@
+@Artemii Kropachev Кластера для Sulabh:
+https://console-openshift-console.apps.sulabh1.ephemeral.dev.li9.com
+kubeadmin/y6SAB-f8f8o-Sfdys-FXab7
+https://console-openshift-console.apps.sulabh2.ephemeral.dev.li9.com
+kubeadmin/Fzuko-aSBqn-r2TuU-Mf4nF
+Step 1: Exec into Postgres pod
+oc exec -it postgres-test-1 -n sulabh-postgres -- bash
+psql -U postgres
+
+
+Use a superuser (postgres) to fix permissions.
+
+Step 2: Grant ownership of the database
+-- Replace aap with your database name
+ALTER DATABASE aap OWNER TO aapuser;
+
+Step 3: Grant privileges on the public schema
+\c aap  -- connect to your database
+
+-- Make the user own the public schema
+ALTER SCHEMA public OWNER TO aapuser;
+
+-- Grant all privileges
+GRANT ALL PRIVILEGES ON SCHEMA public TO aapuser;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO aapuser;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO aapuser;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO aapuser;
+
+DB:
+CREATE ROLE aap WITH
+  LOGIN
+  PASSWORD 'aap12345'
+  CREATEDB;
+
+CREATE DATABASE aap_gateway   OWNER aap;
+CREATE DATABASE aap_controller OWNER aap;
+CREATE DATABASE aap_hub        OWNER aap;
+CREATE DATABASE aap_eda        OWNER aap;
+
+GRANT ALL PRIVILEGES ON DATABASE aap_gateway TO aap;
+GRANT ALL PRIVILEGES ON DATABASE aap_controller TO aap;
+GRANT ALL PRIVILEGES ON DATABASE aap_hub TO aap;
+GRANT ALL PRIVILEGES ON DATABASE aap_eda TO aap;
+
+\c aap_gateway
+ALTER SCHEMA public OWNER TO aap;
+GRANT ALL ON SCHEMA public TO aap;
+
+\c aap_controller
+ALTER SCHEMA public OWNER TO aap;
+GRANT ALL ON SCHEMA public TO aap;
+
+\c aap_hub
+ALTER SCHEMA public OWNER TO aap;
+GRANT ALL ON SCHEMA public TO aap;
+
+\c aap_eda
+ALTER SCHEMA public OWNER TO aap;
+GRANT ALL ON SCHEMA public TO aap;
+
+
+SELECT id, name, created, organization_id  FROM main_inventory  WHERE name = 'artemii';

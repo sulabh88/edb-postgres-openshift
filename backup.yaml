@@ -1,0 +1,47 @@
+apiVersion: v1
+items:
+- apiVersion: aap.ansible.com/v1alpha1
+  kind: AnsibleAutomationPlatformBackup
+  metadata:
+    creationTimestamp: "2025-12-18T15:49:17Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: aap
+      app.kubernetes.io/managed-by: aap-operator
+      app.kubernetes.io/name: aap-backup
+      app.kubernetes.io/operator-version: ""
+      app.kubernetes.io/part-of: aap-backup
+    name: aap-backup
+    namespace: sulabh-postgres
+    resourceVersion: "233981596"
+    uid: 34753153-5fea-47bd-b140-594a801495a5
+  spec:
+    deployment_name: aap
+    no_log: true
+    set_self_labels: true
+  status:
+    conditions:
+    - lastTransitionTime: "2025-12-18T15:49:41Z"
+      message: ""
+      reason: ""
+      status: "False"
+      type: Successful
+    - ansibleResult:
+        changed: 2
+        completion: "2025-12-18T18:48:18.453642+00:00"
+        failures: 1
+        ok: 14
+        skipped: 6
+      lastTransitionTime: "2025-12-18T15:49:41Z"
+      message: unknown playbook failure
+      reason: Failed
+      status: "True"
+      type: Failure
+    - lastTransitionTime: "2025-12-18T18:48:18Z"
+      message: Running reconciliation
+      reason: Running
+      status: "True"
+      type: Running
+kind: List
+metadata:
+  resourceVersion: ""

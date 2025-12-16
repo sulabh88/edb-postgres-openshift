@@ -1,0 +1,142 @@
+apiVersion: v1
+items:
+- apiVersion: automationcontroller.ansible.com/v1beta1
+  kind: AutomationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"automationcontroller.ansible.com/v1beta1","kind":"AutomationController","metadata":{"name":"aap-controller","namespace":"aap"},"spec":{"admin_user":"admin","api_urlpattern_prefix":"controller","auto_upgrade":true,"create_preload_data":true,"garbage_collect_secrets":false,"idle_deployment":false,"image_pull_policy":"IfNotPresent","ingress_type":"Route","ipv6_disabled":false,"loadbalancer_class":"","loadbalancer_ip":"","loadbalancer_port":80,"loadbalancer_protocol":"http","metrics_utility_console_enabled":false,"metrics_utility_cronjob_gather_schedule":"@hourly","metrics_utility_cronjob_report_schedule":"@monthly","metrics_utility_enabled":false,"metrics_utility_pvc_claim_size":"5Gi","no_log":true,"node_selector":"node-role.kubernetes.io/infra:
+        \"\"\n","postgres_configuration_secret":"aap-controller-postgres-configuration","postgres_keepalives":true,"postgres_keepalives_count":5,"postgres_keepalives_idle":5,"postgres_keepalives_interval":5,"postgres_selector":"node-role.kubernetes.io/infra:
+        \"\"\n","postgres_tolerations":"- key: node-role.kubernetes.io/master\n  operator:
+        Exists\n  effect: NoSchedule\n","projects_persistence":false,"projects_storage_access_mode":"ReadWriteMany","projects_storage_size":"8Gi","public_base_url":"https://aap-aap.apps.mgm01.dev-mia.dc.li9.com","replicas":1,"route_tls_termination_mechanism":"Edge","set_self_labels":true,"task_liveness_failure_threshold":3,"task_liveness_initial_delay":5,"task_liveness_period":0,"task_liveness_timeout":1,"task_manage_replicas":true,"task_privileged":false,"task_readiness_failure_threshold":3,"task_readiness_initial_delay":20,"task_readiness_period":0,"task_readiness_timeout":1,"tolerations":"-
+        key: node-role.kubernetes.io/master\n  operator: Exists\n  effect: NoSchedule\n","web_liveness_failure_threshold":3,"web_liveness_initial_delay":5,"web_liveness_period":0,"web_liveness_timeout":1,"web_manage_replicas":true,"web_readiness_failure_threshold":3,"web_readiness_initial_delay":20,"web_readiness_period":0,"web_readiness_timeout":1}}'
+    creationTimestamp: "2025-11-14T17:33:04Z"
+    generation: 3
+    labels:
+      app.kubernetes.io/component: automationcontroller
+      app.kubernetes.io/managed-by: automationcontroller-operator
+      app.kubernetes.io/operator-version: ""
+      app.kubernetes.io/part-of: aap-controller
+    name: aap-controller
+    namespace: aap
+    ownerReferences:
+    - apiVersion: aap.ansible.com/v1alpha1
+      kind: AnsibleAutomationPlatform
+      name: aap
+      uid: 3fcf0438-f814-4362-8622-36c71fefaacf
+    resourceVersion: "219365568"
+    uid: 72607b81-cb00-40c8-b2fb-7ed044b52769
+  spec:
+    admin_user: admin
+    api_urlpattern_prefix: controller
+    auto_upgrade: true
+    create_preload_data: true
+    extra_settings:
+    - setting: ANSIBLE_BASE_JWT_KEY
+      value: '"http://aap"'
+    - setting: ANSIBLE_BASE_JWT_REDIRECT_TYPE
+      value: '"awx"'
+    - setting: ENABLE_SERVICE_BACKED_SSO
+      value: "False"
+    - setting: SERVICE_BACKED_SSO_AUTH_CODE_REDIRECT_URL
+      value: '"https://aap-aap.apps.mgm01.dev-mia.dc.li9.com"'
+    - setting: RESOURCE_SERVER
+      value:
+        SECRET_KEY: crSikTR2UrkAEwfEYkbBBQuWHMsSEfJ9ekHc4jtJNRj23fOcW-pH2vzGQtijsuXtoedvw9jK3CRv6suJ6NRuKQ
+        URL: http://aap
+        VALIDATE_HTTPS: "False"
+    - setting: ANSIBLE_BASE_MANAGED_ROLE_REGISTRY
+      value: '{"platform_auditor": {"name": "Platform Auditor", "shortname": "sys_auditor"}}'
+    - setting: OPTIONAL_UI_URL_PREFIX
+      value: '"execution"'
+    garbage_collect_secrets: false
+    idle_deployment: false
+    image_pull_policy: IfNotPresent
+    ingress_type: Route
+    ipv6_disabled: false
+    loadbalancer_class: ""
+    loadbalancer_ip: ""
+    loadbalancer_port: 80
+    loadbalancer_protocol: http
+    metrics_utility_console_enabled: false
+    metrics_utility_cronjob_gather_schedule: '@hourly'
+    metrics_utility_cronjob_report_schedule: '@monthly'
+    metrics_utility_enabled: false
+    metrics_utility_pvc_claim_size: 5Gi
+    no_log: true
+    node_selector: |
+      node-role.kubernetes.io/infra: ""
+    postgres_configuration_secret: aap-controller-postgres-configuration
+    postgres_keepalives: true
+    postgres_keepalives_count: 5
+    postgres_keepalives_idle: 5
+    postgres_keepalives_interval: 5
+    postgres_selector: |
+      node-role.kubernetes.io/infra: ""
+    postgres_tolerations: |
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+    projects_persistence: false
+    projects_storage_access_mode: ReadWriteMany
+    projects_storage_size: 8Gi
+    public_base_url: https://aap-aap.apps.mgm01.dev-mia.dc.li9.com
+    replicas: 1
+    route_tls_termination_mechanism: Edge
+    set_self_labels: true
+    task_liveness_failure_threshold: 3
+    task_liveness_initial_delay: 5
+    task_liveness_period: 0
+    task_liveness_timeout: 1
+    task_manage_replicas: true
+    task_privileged: false
+    task_readiness_failure_threshold: 3
+    task_readiness_initial_delay: 20
+    task_readiness_period: 0
+    task_readiness_timeout: 1
+    tolerations: |
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+    web_liveness_failure_threshold: 3
+    web_liveness_initial_delay: 5
+    web_liveness_period: 0
+    web_liveness_timeout: 1
+    web_manage_replicas: true
+    web_readiness_failure_threshold: 3
+    web_readiness_initial_delay: 20
+    web_readiness_period: 0
+    web_readiness_timeout: 1
+  status:
+    URL: https://aap-controller-aap.apps.mgm01.dev-mia.dc.li9.com
+    adminPasswordSecret: aap-controller-admin-password
+    adminUser: admin
+    broadcastWebsocketSecret: aap-controller-broadcast-websocket
+    conditions:
+    - ansibleResult:
+        changed: 0
+        completion: "2025-12-15T15:49:26.793961+00:00"
+        failures: 0
+        ok: 91
+        skipped: 94
+      lastTransitionTime: "2025-12-11T20:42:39Z"
+      message: Awaiting next reconciliation
+      reason: Successful
+      status: "True"
+      type: Running
+    - lastTransitionTime: "2025-12-15T15:49:27Z"
+      message: Last reconciliation succeeded
+      reason: Successful
+      status: "True"
+      type: Successful
+    - lastTransitionTime: "2025-12-11T20:43:57Z"
+      message: ""
+      reason: ""
+      status: "False"
+      type: Failure
+    image: registry.redhat.io/ansible-automation-platform-26/controller-rhel9@sha256:da6b099be5529ed876b5da80aac3450acd44471322b45a97f93358ab039a1983
+    postgresConfigurationSecret: aap-controller-postgres-configuration
+    secretKeySecret: aap-controller-secret-key
+    version: 4.7.4
+kind: List
+metadata:
+  resourceVersion: ""

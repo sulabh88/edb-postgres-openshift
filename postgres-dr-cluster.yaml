@@ -1,0 +1,136 @@
+apiVersion: v1
+items:
+- apiVersion: postgresql.k8s.enterprisedb.io/v1
+  kind: Cluster
+  metadata:
+    creationTimestamp: "2025-12-21T18:14:49Z"
+    generation: 1
+    name: postgres-dr
+    namespace: postgres-dr
+    resourceVersion: "249013759"
+    uid: 880bb29b-ffd0-4faf-b640-c335dc4aa9e4
+  spec:
+    affinity:
+      podAntiAffinityType: preferred
+    backup:
+      target: prefer-standby
+      volumeSnapshot:
+        online: true
+        onlineConfiguration:
+          immediateCheckpoint: false
+          waitForArchive: true
+        snapshotOwnerReference: none
+    bootstrap:
+      initdb:
+        database: app
+        encoding: UTF8
+        localeCType: C
+        localeCollate: C
+        owner: app
+    enablePDB: true
+    enableSuperuserAccess: false
+    externalClusters:
+    - name: postgres-15
+      password:
+        key: password
+        name: primary-superuser-secret
+        optional: false
+      plugin:
+        enabled: true
+        isWALArchiver: false
+        name: ""
+      sslCert:
+        key: tls.crt
+        name: sulabh-prod-replication
+      sslKey:
+        key: tls.key
+        name: sulabh-prod-replication
+      sslRootCert:
+        key: ca.crt
+        name: sulabh-prod-ca
+    failoverDelay: 0
+    imageName: docker.enterprisedb.com/k8s/postgresql:18.1-standard-ubi9
+    instances: 3
+    logLevel: info
+    maxSyncReplicas: 0
+    minSyncReplicas: 0
+    monitoring:
+      customQueriesConfigMap:
+      - key: queries
+        name: postgresql-operator-default-monitoring
+      disableDefaultQueries: false
+      enablePodMonitor: false
+      tls:
+        enabled: false
+    nodeMaintenanceWindow:
+      inProgress: false
+      reusePVC: true
+    postgresGID: 26
+    postgresUID: 26
+    postgresql:
+      parameters:
+        archive_mode: "on"
+        archive_timeout: 5min
+        dynamic_shared_memory_type: posix
+        full_page_writes: "on"
+        log_destination: csvlog
+        log_directory: /controller/log
+        log_filename: postgres
+        log_rotation_age: "0"
+        log_rotation_size: "0"
+        log_truncate_on_rotation: "false"
+        logging_collector: "on"
+        max_parallel_workers: "32"
+        max_replication_slots: "32"
+        max_worker_processes: "32"
+        shared_memory_type: mmap
+        shared_preload_libraries: ""
+        ssl_max_protocol_version: TLSv1.3
+        ssl_min_protocol_version: TLSv1.3
+        wal_keep_size: 512MB
+        wal_level: logical
+        wal_log_hints: "on"
+        wal_receiver_timeout: 5s
+        wal_sender_timeout: 5s
+      syncReplicaElectionConstraint:
+        enabled: false
+    primaryUpdateMethod: restart
+    primaryUpdateStrategy: unsupervised
+    probes:
+      liveness:
+        isolationCheck:
+          connectionTimeout: 1000
+          enabled: true
+          requestTimeout: 1000
+    replicationSlots:
+      highAvailability:
+        enabled: true
+        slotPrefix: _cnp_
+      synchronizeReplicas:
+        enabled: true
+      updateInterval: 30
+    resources: {}
+    smartShutdownTimeout: 180
+    startDelay: 3600
+    stopDelay: 1800
+    storage:
+      resizeInUseVolumes: true
+      size: 1Gi
+    switchoverDelay: 3600
+    walStorage:
+      resizeInUseVolumes: true
+      size: 1Gi
+  status:
+    conditions:
+    - lastTransitionTime: "2025-12-21T18:14:51Z"
+      message: Cluster Is Not Ready
+      reason: ClusterIsNotReady
+      status: "False"
+      type: Ready
+    phase: Cluster cannot proceed to reconciliation due to an unknown plugin being
+      required
+    phaseReason: 'Unknown plugin: ''''. This may be caused by the plugin not being
+      loaded correctly by the operator. Check the operator and plugin logs for errors'
+kind: List
+metadata:
+  resourceVersion: ""
